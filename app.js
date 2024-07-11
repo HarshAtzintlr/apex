@@ -30,7 +30,7 @@ const io = new Server(server, {
 // Salesforce OAuth configuration
 const clientId = process.env.SF_CLIENT_ID;
 const clientSecret = process.env.SF_CLIENT_SECRET;
-const redirectUri = `http://localhost:5000/auth/callback`;
+const redirectUri = `https://apex-6huo.onrender.com/auth/callback`;
 const salesforceLoginUrl = "https://login.salesforce.com";
 
 // Routes
