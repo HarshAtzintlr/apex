@@ -76,6 +76,7 @@ app.get("/auth/callback", async (req, res) => {
 // Endpoint to receive Salesforce notifications
 app.post("/notifications", (req, res) => {
   const notification = req.body;
+  console.log(req.body);
 
   // Forward notification to all connected WebSocket clients
   io.emit("salesforce-notification", notification);
