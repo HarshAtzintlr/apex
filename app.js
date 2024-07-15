@@ -182,7 +182,7 @@ app.get("/auth/salesforce/callback", async (req, res) => {
 // HubSpot OAuth flow
 app.get("/auth/hubspot", (req, res) => {
   res.send(
-    `${hubspotLoginUrl}?client_id=${hsClientId}&redirect_uri=${hsRedirectUri}&scope=crm.objects.contacts.write%20crm.objects.deals.read`
+    `${hubspotLoginUrl}?client_id=${hsClientId}&redirect_uri=${hsRedirectUri}&scope=crm.lists.write%20crm.objects.companies.read%20crm.objects.companies.write%20crm.objects.contacts.read%20crm.objects.contacts.write%20crm.objects.deals.read%20crm.objects.deals.write%20crm.objects.owners.read%20crm.schemas.companies.read%20crm.schemas.contacts.read%20crm.schemas.contacts.write%20crm.schemas.deals.read%20forms%20oauth%20tickets`
   );
 });
 
