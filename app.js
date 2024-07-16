@@ -160,6 +160,7 @@ app.get("/auth/salesforce", (req, res) => {
   );
 });
 
+// Salesforce OAuth flow
 app.get("/auth/salesforce/callback", async (req, res) => {
   const code = req.query.code;
   try {
@@ -173,11 +174,10 @@ app.get("/auth/salesforce/callback", async (req, res) => {
     res.json({ accessToken, instanceUrl });
   } catch (error) {
     console.error("Salesforce OAuth error:", error.response.data);
-    res
-      .status(500)
-      .json({ error: "Failed to complete Salesforce OAuth process" });
+    res.status(500).json({ error: "Failed to complete Salesforce OAuth process" });
   }
 });
+
 
 // HubSpot OAuth flow
 app.get("/auth/hubspot", (req, res) => {
