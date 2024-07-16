@@ -196,6 +196,7 @@ app.get("/auth/hubspot/callback", async (req, res) => {
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
     const accessToken = response.data.access_token;
+    hubspotAccessToken = accessToken;  
     const refreshToken = response.data.refresh_token;
     res.json({ accessToken, refreshToken });
   } catch (error) {
