@@ -118,6 +118,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+let hubspotAccessToken = null;
 // CORS middleware
 const corsOptions = {
   origin: "*",
@@ -210,7 +211,45 @@ app.post("/notifications", (req, res) => {
   io.emit("salesforce-notification", notification);
   res.status(200).send("Notification received");
 });
+// Endpoint to fetch updated records from HubSpot
+app.get("/hubspot/updated-records", async (req, res) => {
+  if (!hubspotAccessToken) {
+    return res.status(401).json({ error: "HubSpot access token is missing" });
+  }
 
+  try {
+    const oneHourAgo = new Date(Date.now() - 3600000).toISOString();
+    const response = await axios.post(
+      "https://api.hubapi.com/crm/v3/objects/contacts/search",
+      {
+        filterGroups: [
+          {
+            filters: [
+              {
+                propertyName: "lastmodifieddate",
+                operator: "GT",
+                value: oneHourAgo,
+              },
+            ],
+          },
+        ],
+        properties: ["firstname", "lastname", "email", "lastmodifieddate"],
+        limit: 10,
+        after: 0,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${hubspotAccessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching HubSpot records:", error.response.data);
+    res.status(500).json({ error: "Failed to fetch HubSpot records" });
+  }
+});
 // Start server
 server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
