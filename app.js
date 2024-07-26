@@ -162,7 +162,7 @@ app.get("/auth/salesforce", (req, res) => {
 });
 
 // Salesforce OAuth flow
-app.get("/auth/salesforce/callback", async (req, res) => {
+app.get("/auth/callback", async (req, res) => {
   const code = req.query.code;
   try {
     const response = await axios.post(
