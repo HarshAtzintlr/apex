@@ -140,7 +140,7 @@ const io = new Server(server, {
 // Salesforce OAuth configuration
 const sfClientId = process.env.SF_CLIENT_ID;
 const sfClientSecret = process.env.SF_CLIENT_SECRET;
-const sfRedirectUri = `https://apex-6huo.onrender.com/auth/salesforce/callback`;
+const sfRedirectUri = `https://apex-6huo.onrender.com/auth/callback`;
 const salesforceLoginUrl = "https://login.salesforce.com";
 
 // HubSpot OAuth configuration
